@@ -1,0 +1,72 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %} Flasky{% endblock %}
+
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+     <button type="button" class="navbar-toggle"
+  data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">SDUT</a>
+        </div>
+       <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+           <li><a href="/">Home</a></li>
+          </ul>
+           <ul class='nav navbar-nav'>
+               <li><a href='/articlelist'>练习</a></li>
+               </ul>
+               <ul class='nav navbar-nav'>
+                   <li><a href='/contextlist'>比赛</a></li>
+                       </ul>
+                       <ul class='nav navbar-nav'>
+                           <li><a href='/dailypracticeranklist'>日常练习排名</a> </li>
+
+                           </ul>
+                       <ul class='nav navbar-nav' >
+                           <li><a href='/logout' onclick="logout()">注销</a></li>
+                           </ul>
+                           <ul class='nav navbar-nav'>
+                               <li id='iflogin'></li>
+                               </ul>
+                <ul class='nav navbar-nav'>
+                    <li id='add'></li>
+
+                </ul>
+
+           </div>
+     </div>
+   </div>
+   <script>
+function logout(){
+   alert('您已注销！');
+}
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+       <button type="button" class="close" data-dismiss="alert">&times;</button>
+       {{ message }}
+    </div>
+    {% endfor %}
+
+   {% block page_content %}{% endblock %}
+  </div>
+ {% endblock %}
+
+
+{% block scripts %}
+ {{ super() }}
+{{ moment.include_moment()}}
+{% endblock %}

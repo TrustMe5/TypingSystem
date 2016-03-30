@@ -1,0 +1,43 @@
+{%extends "base.html"%}
+{% block title%} 班级排名{%endblock%}
+{% block page_content%}
+
+<script>
+window.onload=function(){
+{% if not writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/login'>登陆</a> ";
+    self.location='/auth';
+    {%else%}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/homepage/user={{writer}}'>当前用户:{{writer}}</a>"
+    {%endif%}
+}
+</script>
+<a href="/auth/dailypracticeranklist/page=1">返回总排名</a>
+<center><h1>{{classname}}排名</h1></center>
+<table class='table table-bordered table-condensed'>
+    <tbody>
+    <tr class='info'>
+        <td>名次</td>
+        <td>班级</td>
+        <td>学号</td>
+        <td>用户名</td>
+        <td>在线打字时间</td>
+        <td>平均打字速度</td>
+        <td>练习次数</td>
+        <td>最近一次提交</td>
+        </tr>
+        {% for list in pagecontent %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{list.classes}}</td>
+            <td>{{list.student_number}}</td>
+            <td><a href='/auth/homepage/user={{list.name}}'>{{list.name}}</a></td>
+            <td>{{list.onlineTime}}分钟</td>
+            <td>{{list.averageSpeed}} KPM</td>
+            <td>{{list.numofSubmit}}</td>
+            <td>{{list.recentsubmitTime}}</td>
+            </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+{% endblock%}

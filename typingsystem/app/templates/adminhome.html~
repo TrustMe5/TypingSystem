@@ -1,0 +1,22 @@
+{% extends "base.html"%}
+{% import "bootstrap/wtf.html" as wtf %}
+{%block title%}Administrator's Home{%endblock%}
+{% block page_content%}
+
+<link rel='stylesheet' href="{{url_for('static',filename='adminhome.css')}}" media='screen' />
+<script>
+window.onload=function(){
+    {% if not isadmin %} self.location='/';
+    {%endif%}
+
+}
+</script>
+<div> 
+    <h3><a href='/addarticle'>添加文章</a></h3>
+    <h3><a href='/addcontext'>添加比赛</a></h3>
+    </div>
+<div id='modify_user_password'>
+    <label><center><h3>修改用户密码</h3></center></label>
+{{wtf.quick_form(modifypwdform)}}
+</div>
+{%endblock%}

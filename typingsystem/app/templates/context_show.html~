@@ -1,0 +1,31 @@
+{%extends "base.html"%}
+
+{%block title%}比赛{%endblock%}
+
+{%block page_content%}
+<script>
+window.onload=function(){
+    {%if not writer %}self.location='/';{%endif%}
+}
+</script>
+<center><h1>比赛{{contextname}}内容</h1></center>
+</br>
+<table class='table table-bordered table-condensed'>
+    <tbody>
+    <tr class='info'>
+        <td>题目ID</td>
+        <td>文章名字</td>
+        <td>比赛情况</td>
+        <td>测试时长</td>
+        </tr>
+        {% for list in result %}
+        <tr>
+            <td>({{loop.index}})</td>
+            <td><a href='/contextcontentshow/{{list.articlename}}'>{{list.articlename}}</a></td>
+        <th><a href='/contextresultshow/context_id={{context_id}}'>比赛结果</a></th>
+            <td>{{list.timelimit}}分钟</td>
+            <tr>
+        {%endfor%}
+    </tbody>
+    </table>
+{%endblock%}

@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title%} writing{%endblock%}
+{% block metas%}<meta charset='utf-8'> {%endblock%}
+<link href="{{url_for('static',filename='showcontent.css')}}" media='screen' />
+
+{% block page_content %}
+
+<body >
+<div id='title'><center><h1>日常练习</h1><center></div>
+<div id='showtime'>
+<div id='showresult'>
+       正确率：<input id='accuracy_rate' readonly='' class='result_input' type='text' value='0%'></input>
+        </div>
+        <div id='wri_speed'>
+            速度:<input id='speedshow' readonly='' class='result_input' type='text' value='0KPM'></input>
+            </div>
+            <div id='div_time'>
+                  时间：<input id='time_input' readonly='' class='result_input' type='text' value='0秒'/>
+                </div>
+<div id='current_time' name='currenttime'></div>
+<button onclick='start(this)'>开始</button>
+</div>
+    </br>
+    <div left=110px top=50px>
+        <center>   <h3>文章名字：{{ name }}  文章等级:{{rank}}</h3></center>
+</div>
+</br>
+<div id='result_show'>
+    <form name='login' method='post'>
+    {{result_form.hidden_tag()}}
+    {{result_form.username}}
+    {{result_form.articlename}}
+    {{result_form.speed}}
+    {{result_form.rightrate}}
+    {{result_form.rank}}
+    {{result_form.submitTime}}
+    {{result_form.writenum}}
+    {{result_form.timeduring}}
+    <input id='submit' type='submit' value='提交' onclick='set()'></input>
+    </form>
+    </div>
+<div id='content'>
+</br>
+{%  for line in content %}
+<div    id="div{{ loop.index }}" class='typing'>{{ line }}</div>
+<input type="text" id="writing{{ loop.index }}" class='typing'  value="" oninput="CheckInput({{ loop.index }})"/>
+<input type="text"  hidden="true" id="show{{ loop.index }}" value="{{ line }}" />
+{% endfor %}
+</br>
+</br>
+</div>
+</br>
+</br>
+</br>
+<script>
+window.onload=function(){
+    {% if not writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/login'>登陆</a> ";
+    self.location='/';
+    {%else%}
+    document.getElementById('iflogin').innerHTML="<a href='/homepage/user={{writer}}'>当前用户:{{writer}}</a>"
+    {%endif%}
+    startTime();
+var lable_input=document.getElementsByTagName('input');
+for(var i=0; i<lable_input.length;i++){
+    lable_input[i].setAttribute('readonly','');
+
+}
+}
+</script>
+<script>
+function set(){
+    document.getElementById('username').value='{{writer}}';
+    document.getElementById('articlename').value='{{name}}';
+    document.getElementById('speed').value=document.getElementById('speedshow').value;
+    document.getElementById('rightrate').value=document.getElementById('accuracy_rate').value;
+    document.getElementById('rank').value="{{rank}}";
+    document.getElementById('submitTime').value=document.getElementById('current_time').lastChild.nodeValue;
+    var res=document.getElementById('time_input').value;
+    document.getElementById('timeduring').value=parseInt(res.substr(0,res.length-1)/60+1);
+    var sum=document.getElementsByClassName('red').length+document.getElementsByClassName('green').length;
+    document.getElementById('writenum').value=sum;
+alert('速度:'+document.getElementById('speedshow').value+"  正确率:"+document.getElementById('accuracy_rate').value+" 打字数目："+sum);
+}
+</script>
+
+<script type="text/javascript" src="{{url_for('static',filename='actiontrigger.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='currentdate.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='onkeydown.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='judge.js')}}"></script>
+
+
+
+{% endblock %}

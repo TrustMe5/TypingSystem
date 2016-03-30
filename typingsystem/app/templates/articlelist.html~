@@ -1,0 +1,44 @@
+{% extends "base.html"%}
+
+{%block title%} 练习{%endblock%}
+{% block page_content %}
+<script>
+window.onload=function(){
+{% if not writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/login'>登陆</a> ";
+    self.location='/';
+    {%else%}
+    document.getElementById('iflogin').innerHTML="<a href='/homepage/user={{writer}}'>当前用户:{{writer}}</a>"
+    {%endif%}
+}
+</script>
+<style>
+#content{
+position:absolute;
+top:200px;
+
+}
+</style>
+<center><h1> 文章列表 </h1></center>
+<b> Go To Volume </b>
+{% for i in range(totalpagenum) %}
+<a href='/articlelist/page={{loop.index}}'>[{{loop.index}}]</a>
+
+{%endfor%}
+<table class='table table-bordered table-condensed'>
+<tbody>
+<tr class='info'>
+                <td>ID</td>
+                <td>文章名字</td>
+                <td>等级</td>
+                </tr>
+{% for list in result %}
+<tr>
+    <td><a href='/articlelist/{{list.name}}'>{{list.id}}</a></td>
+<td><a href='/articlelist/{{list.name}}'>{{ list.name}}</a></td>
+<td>{{list.rank}}</td>
+</tr>
+{% endfor%}
+</tbody>
+</table>
+{% endblock %}

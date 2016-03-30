@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{%block title %}Writing{% endblock %}
+{% block page_content %}
+<div>
+    <h1> welcome!</h1>
+    </div>
+    <div id='content'>
+    <div id='div1'>
+    <span class='view_span' id='div1span'>hello!world hello world!</span>
+    </br>
+    <input class='hiddeninput' type='hidden' value='hello!world hello world!'></input>
+    <input type='text' id='div1input' oninput='compare(this)' maxlength=24></input>
+    </div>
+    <div id='div2'>
+        <span class='view_span' id='div2span'>世界那么大，我想去看看</span>
+        </br>
+    <input class='hiddeninput' type='hidden' value='世界那么大，我想去看看'></input>
+    <input type='text' id='div2input' oninput='compare(this)' maxlength=24></input>
+        
+    </div>
+    <div id='div3'>
+        
+        <span class='view_span' id='div3span'> Always put yourself in others’shoes.If you feel that it hurts you,it probably hurts the other person, too.</span>
+        </br>
+    <input class='hiddeninput' type='hidden' value='Always put yourself in others’shoes.If you feel that it hurts you,it probably hurts the other person, too.'></input>
+    <input type='text' id='div3input' oninput='compare(this)' maxlength=80></input>
+        </div>
+        <div id='div4'>
+        <span class='view_span' id='div4span'>There are moments in life when you miss someone so much that you just want to pick them from your dreams and hug them for real!</span>
+        </br>
+    <input class='hiddeninput' type='hidden' value='There are moments in life when you miss someone so much that you just want to pick them from your dreams and hug them for real!'></input>
+    <input type='text' id='div4input' oninput='compare(this)' maxlength=80></input>
+            </div>
+
+            <div id='div5'>
+           <span class='view_span' id='div5span'>Dream what you want to dream;go where you want to go;be what you want to be,because you have only one life and one chance to do all the things you want to do.</span>
+        </br>
+    <input class='hiddeninput' type='hidden' value='Dream what you want to dream;go where you want to go;be what you want to be,because you have only one life and one chance to do all the things you want to do.'></input>
+    <input type='text' id='div5input' oninput='compare(this)' maxlength=80></input>
+                </div>
+<div id='div6'>
+           <span class='view_span' id='div6span'>May you have enough happiness to make you sweet,enough trials to make you strong,enough sorrow to keep you human,enough hope to make you happy? </span>
+        </br>
+    <input class='hiddeninput' type='hidden' value='May you have enough happiness to make you sweet,enough trials to make you strong,enough sorrow to keep you human,enough hope to make you happy?'></input>
+    <input type='text' id='div6input' oninput='compare(this)' maxlength=80></input>
+                </div>
+<div id='div7'>
+           <span class='view_span' id='div7span'>The happiest of people don’t necessarily have the best of everything;they just make the most of everything that comes along their way.</span>
+        </br>
+    <input class='hiddeninput' type='hidden' value='The happiest of people don’t necessarily have the best of everything;they just make the most of everything that comes along their way.'></input>
+    <input type='text' id='div7input' oninput='compare(this)' maxlength=80></input>
+                </div>
+    </div>
+    <script>
+function compare(whichlable){
+    var maxlen=whichlable.parentNode.getElementsByClassName('hiddeninput')[0].getAttribute('value').length;
+    whichlable.setAttribute('maxlength',maxlen);
+    var mesnow=new Array();
+    mesnow=whichlable.value;
+   // alert(whichlable.parentNode.id);
+    var id_span=whichlable.parentNode.getElementsByClassName('view_span');
+    //alert(id_span[0].id);
+    while(id_span[0].firstChild!=id_span[0].lastChild){
+        id_span[0].removeChild(id_span[0].childNodes[0]);
+      
+
+    }
+    id_span[0].lastChild.nodeValue=whichlable.parentNode.getElementsByClassName('hiddeninput')[0].getAttribute('value');
+    var length=whichlable.value.length;
+    for(var i=0;i<length;i++){
+      var small_span=document.createElement('span');
+      var text=document.createTextNode(id_span[0].lastChild.nodeValue[0]);
+      small_span.appendChild(text);
+      if(id_span[0].lastChild.nodeValue[0]==mesnow[i]){
+         small_span.setAttribute('class','green');
+      }else{
+        small_span.setAttribute('class','red');
+      }
+      id_span[0].insertBefore(small_span,id_span[0].lastChild);
+      id_span[0].lastChild.nodeValue=id_span[0].lastChild.nodeValue.slice(1);
+
+
+    }
+}
+    </script>
+    <style>
+    .green{
+      color:green;
+    }
+    .red{
+     color:red;
+    }
+    input{
+    width:650px;
+    height:30px;
+
+    }
+
+</style>
+    <!--    {{wtf.quick_form(form)}}-->
+    {% endblock %}

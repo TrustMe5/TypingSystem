@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<title> writing</title>
+<meta charset='utf-8'>
+</head>
+<body>
+hello!{{json_result}}
+{% for line in json_result %}
+<div    id="div{{ loop.counter }}">{{ line }}</div>
+<input type="text" id="writing{{ loop.counter }}" value="" oninput="CheckInput({{ loop.counter }})"/>
+<input type="text" hidden="true" id="show{{ loop.counter }}" value="{{ line }}" />
+
+{% endfor %}
+</body>
+</html>
