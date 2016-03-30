@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title%}Typing System{%endblock%}
+{% block page_content %}
+<meta charset='utf-8'>
+<link rel='stylesheet' href="{{url_for('static',filename='contextcontentshow.css')}}" media='screen' />
+<center><h1>比赛</h1></center>
+<div id='text-dur'><h3>测试时长：{{timelimit}}分钟</h3></div>
+<div id='showtime'>
+<div id='showresult'>
+       正确率：<input id='accuracy_rate' readonly='' class='result_input' type='text' value='0%'></input>
+        </div>
+        <div id='wri_speed'>
+            速度:<input id='speedshow' readonly='' class='result_input' type='text' value='0KPM'></input>
+            </div>
+            <div id='div_time'>
+                  时间：<input id='time_input' readonly='' class='result_input' type='text' value='0秒'/>
+                </div>
+<div id='current_time'></div>
+                
+<button onclick='start(this)'>开始</button>
+</div>
+    </br>
+    <div left=110px top=50px>
+        <center><h3>文章名字：{{ name }}  文章等级:{{rank}}</h3></center>
+</div>
+</br>
+<div id='result_show'>
+    <form name='submitform' method='post'>
+    {{result_form.hidden_tag()}}
+    {{result_form.username}}
+    {{result_form.articlename}}
+    {{result_form.speed}}
+    {{result_form.rightrate}}
+    {{result_form.rank}}
+    {{result_form.submitTime}}
+    {{result_form.writenum}}
+    {{result_form.score}}
+    <input id='submit' type='submit' value='结束'></input>           <!--比赛结束时间到了会触发事件实现自动提交，所以在css中把该提交标签移除了界面外面 用户看不到该提交按钮-->
+    </form>
+
+    </div>
+<div id='content' style="background-color:lightgray">
+</br>
+{%  for line in content %}
+<div    id="div{{ loop.index }}" class='typing'>{{ line }}</div>
+<input type="text" id="writing{{ loop.index }}" class='typing'  value="" oninput="CheckInput({{ loop.index }})"/>
+<input type="text"  hidden="true" id="show{{ loop.index }}" value="{{ line }}" />
+{% endfor %}
+</br>
+</br>
+</div>
+</br>
+</br>
+</br>
+<script>
+window.onload=function(){
+   {% if not writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/login'>登陆</a> ";
+    self.location='/';
+    {%else%}
+    document.getElementById('iflogin').innerHTML="<a href='/homepage/user={{writer}}'>当前用户:{{writer}}</a>"
+    {%endif%}
+    startTime();
+var lable_input=document.getElementsByTagName('input');
+for(var i=0; i<lable_input.length;i++){
+    lable_input[i].setAttribute('readonly','');
+}
+}
+</script>
+
+<script>
+function set(){                                                    //表单不是用的模板，所以该方法是把比赛的各个数据再传给表单
+    document.getElementById('username').value='{{writer}}';
+    document.getElementById('articlename').value='{{name}}';
+    document.getElementById('speed').value=document.getElementById('speedshow').value;
+    document.getElementById('rightrate').value=document.getElementById('accuracy_rate').value;
+    document.getElementById('rank').value="{{rank}}";
+    document.getElementById('submitTime').value=document.getElementById('current_time').lastChild.nodeValue;
+    document.getElementById('score').value=document.getElementsByClassName('green').length;
+    var sum=document.getElementsByClassName('red').length+document.getElementsByClassName('green').length;
+    document.getElementById('writenum').value=sum;
+
+alert('速度:'+document.getElementById('speedshow').value+"  正确率:"+document.getElementById('accuracy_rate').value+" 打字数目："+sum);
+}
+</script>
+
+<script type="text/javascript" src="{{url_for('static',filename='currentdate.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='judge.js')}}"></script>
+<script type="text/javascript" src="{{url_for('static',filename='contextonkeydown.js')}}"></script>
+
+<script>
+var a=1;
+function start(which){
+if(a==1){
+   var lable_input=document.getElementsByTagName('input');
+   for(var i=0;i<lable_input.length;i++){
+      lable_input[i].removeAttribute('readonly');
+   }
+   timedCount();
+   a=a+1;
+}
+}
+</script>
+ 
+<script type='text/javascript'>
+var c=0;
+var t;
+function timedCount()
+{
+    if(c>=60){
+        var mins=parseInt(c/60);
+        var secd=c-mins*60;
+        document.getElementById('time_input').value=mins+"分"+secd+"秒"
+    }else{
+    document.getElementById('time_input').value=c+"秒"
+    }
+        if(c=={{timelimit}}*60){
+            set();
+            document.getElementById('submit').click();
+            clearTimeout(t)
+        }
+        c=c+1;
+        t=setTimeout("timedCount()",1000);
+        r=setTimeout("spedandrate()",1000);
+}
+</script>
+{% endblock %}

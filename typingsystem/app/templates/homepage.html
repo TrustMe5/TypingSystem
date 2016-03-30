@@ -1,0 +1,64 @@
+{% extends "base.html"%}
+
+{% block title%}个人主页{%endblock%}
+
+{% block page_content%}
+<script>
+window.onload=function(){
+    {% if not writer%}self.location='/auth';
+    {%endif%}
+}
+</script>
+<center><h1>个人信息</h1></center>
+<table class='table table-bordered table-condensed'>
+    <tbody>
+    <tr class='info'>
+        <td>班级</td>
+        <td>学号</td>
+        <td>用户名</td>
+        <td>总在线打字时间</td>
+        <td>平均打字速度</td>
+        <td>打字次数</td>
+        <td>最近打字时间</td>
+        </tr>
+        <tr>
+            <td>{{result.classes}}</td>
+            <td>{{result.student_number}}</td>
+            <td>{{result.name}}</td>
+            <td>{{result.onlineTime}}分钟</td>
+            <td>{{result.averageSpeed}} KPM</td>
+            <td>{{result.numofSubmit}}</td>
+            <td>{{result.recentsubmitTime}}</td>
+            </tr> 
+            </tbody>
+            </table>
+<center><h1>平时练习统计</h1></center>
+<table class='table table-bordered table-condensed'>
+    <tbody>
+    <tr class='info'>
+        <td>班级</td>
+        <td>学号</td>
+        <td>用户名</td>
+        <td>文章名字</td>
+        <td>打字速度</td>
+        <td>正确率</td>
+        <td>打字数目</td>
+        <td>日期</td>
+        <td>成绩</td>
+        </tr>
+			{% for list in dailypractice%}
+        <tr>
+            <td>{{list.classes}}</td>
+            <td>{{list.student_number}}</td>
+            <td>{{list.username}}</td>
+            <td>{{list.articlename}}</td>
+            <td>{{list.write_speed}}</td>
+            <td>{{list.right_rate}} </td>
+            <td>{{list.writenum}}</td>
+            <td>{{list.submitTime}}</td>
+            <td>{{list.level}}</td>
+            </tr> 
+			{% endfor %}
+            </tbody>
+            </table>
+{%endblock%}

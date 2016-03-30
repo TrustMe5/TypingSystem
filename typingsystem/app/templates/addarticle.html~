@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title%}admin{%endblock%}
+{%block page_content%}
+<link rel='stylesheet' href="{{url_for('static',filename='addarticle.css')}}" media='screen' />
+<script>
+window.onload=function(){
+    {%if not isadmin %}self.location='/';
+    {% else %}
+    document.getElementById('iflogin').innerHTML="<a href='/homepage/user={{isadmin}}'>当前用户:{{isadmin}}</a>";
+    document.getElementById('add').innerHTML="<a href='/addcontext'>添加比赛</a>";
+    {%endif%}
+}
+</script>
+
+<center><h1> 添加文章 </h1></center>
+
+{{ wtf.quick_form(addarticleform)}}
+{%endblock%}

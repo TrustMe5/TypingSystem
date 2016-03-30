@@ -1,0 +1,74 @@
+body{
+background-color:skyblue;
+}
+#showresult{
+     position:absolute;
+     left:84%;
+     top:16%;
+}
+div #wri_speed{
+     position:absolute;
+     left:85%;
+     top:23%;
+}
+#submit{
+position:absolute;
+left:200px;
+top:70px;
+width:65px;
+height:33px;
+}
+#content{
+background-color:lightgray;
+}
+#div_time{
+   position:absolute;
+   left:85%;
+   top:9%;
+
+}
+#current_time{
+    position:absolute;
+    left:84%;
+    top:30%;
+}
+.result_input{
+width:100px;
+height:30px;
+}
+    .green{
+      color:green;
+    }
+    .red{
+     color:red;
+    }
+    input{
+    width:1050px;
+    height:30px;
+    }
+    button{
+position:absolute;
+left:8%;
+top:11%;
+width:65px;
+height:32px;
+    }
+#submit{
+position:absolute;
+left:15%;
+top:11%;
+}
+.green{
+color:green;
+}
+.red{
+color:red;
+}
+.typing{
+font-size:16px;
+font-weight:bold;
+font-family:"Microsoft YaHei";
+}
+footer{
+background-color:skyblue;
+}

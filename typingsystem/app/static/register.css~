@@ -1,0 +1,7 @@
+ #register{
+        width:30%;
+        height:10px;
+        left:10%;
+        top:1%;
+       position:absolute; 
+    }

@@ -1,0 +1,52 @@
+{% extends "base.html"%}
+
+{% block title%}比赛结果{%endblock%}
+{% block page_content%}
+<script>
+window.onload=function(){
+{% if not writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/login'>登陆</a> ";
+    self.location='/auth';
+    {%else%}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/homepage/user={{writer}}'>当前用户:{{writer}}</a>"
+    {%endif%}
+}
+</script>
+<center><h1> 比赛{{contextname}}结果 </h1></center>
+<table class='table table-bordered table-condensed'>
+    <tbody>
+<tr class='info'>
+    
+        <td>比赛ID</td>
+        <td>比赛排名</td>
+        <td>班级</td>
+        <td>学号</td>
+        <td>用户名</td>
+        <td>分数</td>
+        <td>文章名字</td>
+        <td>打字速度</td>
+        <td>正确率</td>
+        <td>打字数目</td>
+        <td>日期</td>
+        <td>成绩评定</td>
+        
+        </tr>
+        {% for list in result%}
+        <tr>
+            <td>{{list.contextId}}</td>
+            <td>{{loop.index}}</td>
+            <td>{{list.classes}}</td>
+            <td>{{list.student_number}}</td>
+            <td><a href='/auth/homepage/user={{list.username}}'>{{list.username}}</a></td>
+            <td>{{list.score}}</td>
+            <td><a href='/auth/articlelist/{{list.articlename}}'>{{list.articlename}}</a></td>
+            <td>{{list.write_speed}}</td>
+            <td>{{list.right_rate}}</td>
+            <td>{{list.writenum}}</td>
+            <td>{{list.submitTime}}</td>
+            <td>{{list.level}}</td>
+            </tr>
+            {% endfor %}
+    </tbody>
+    </table>
+{%endblock%}

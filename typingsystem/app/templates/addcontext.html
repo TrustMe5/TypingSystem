@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang='en'>
+{% extends "base.html"%}
+
+{% block title%}添加比赛{%endblock%}
+{% block page_content %}
+<div id='current_time'></div>
+<label><h3><a href='/auth/adminhome'>返回</a></h3></label>
+<center><h1>添加比赛</h1></center>
+    <div id='addcontext'>
+        <form method='post'>
+            {{addcontextform.hidden_tag()}}
+            <p>比赛ID:{{addcontextform.context_id}}</p>
+            <p>比赛名字: {{addcontextform.contextname}}</p>
+            <p>比赛时长: {{addcontextform.timelimit}}分钟</p>
+            <p>开始时间:<input type="text" id="timeaction" onclick="WdatePicker()" > <select id='starthour'>{% for i in range(24)%}{%if i<10%}<option>0{{i}}</option>{%else%}<option>{{i}}</option>{%endif%}{%endfor%}</select>时<select id='startmins'>{% for i in range(60)%}{%if i<10%}<option>0{{i}}</option>{%else%}<option>{{i}}</option>{%endif%}{%endfor%} </select>分00秒</p>
+            <p>{{addcontextform.start_time}}</p>
+            <p>结束时间:<input type="text" id="timeover" onclick="WdatePicker()" onchange="text()"> <select id='endhour' onchange="text()">{% for i in range(24)%}{%if i<10%}<option>0{{i}}</option>{%else%}<option>{{i}}</option>{%endif%}{%endfor%}</select>时<select id='endmins' onchange="text()">{% for i in range(60)%}{%if i<10%}<option>0{{i}}</option>{%else%}<option>{{i}}</option>{%endif%}{%endfor%} </select>分00秒</p>
+            <p>{{addcontextform.end_time}}</p>
+            <p>{{addcontextform.articlename}}</p>
+            比赛文章:<select id='sect'>
+                {% for list in result %}
+                <option>{{list.name}}</option>
+                {%endfor%}
+                </select>
+                </br>
+                <input id='submit' type='submit' value='提交' onclick='submt()'>
+            </form>
+        </div>
+        <script>
+window.onload=function(){
+{% if not isadmin%} self.location='/auth';
+{% else %}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/homepage/user={{isadmin}}'>当前用户:{{isadmin}}</a>";
+    document.getElementById('add').innerHTML="<a href='/auth/addarticle'>添加文章</a>";
+{% endif %}
+startTime();
+document.getElementById('context_id').value={{context_id}};
+document.getElementById('context_id').setAttribute('readonly','');
+}
+</script>
+<script src="{{url_for('static',filename='judgeTime.js')}}"></script>
+<script src="{{url_for('static',filename='currentdate.js')}}"></script>
+<script src="http://www.my97.net/dp/My97DatePicker/WdatePicker.js"></script>
+{%endblock%}
+</html>

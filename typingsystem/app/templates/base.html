@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% extends "bootstrap/base.html" %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+     <button type="button" class="navbar-toggle"
+  data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/auth">SDUT</a>
+        </div>
+       <div class="navbar-collapse collapse">
+         <ul class="nav navbar-nav">
+           <li><a href="/auth">Home</a></li>
+          </ul>
+           <ul class='nav navbar-nav'>
+               <li><a href='/auth/articlelist'>练习</a></li>
+               </ul>
+               <ul class='nav navbar-nav'>
+                   <li><a href='/auth/contextlist'>比赛</a></li>
+                       </ul>
+                       <ul class='nav navbar-nav'>
+                           <li><a href='/auth/dailypracticeranklist/page=1'>日常练习总排名</a> </li>
+
+                           </ul>
+                       <ul class='nav navbar-nav' >
+                           <li><a href='/auth/logout' onclick="logout()">注销</a></li>
+                           </ul>
+                           <ul class='nav navbar-nav'>
+                               <li id='iflogin'></li>
+                               </ul>
+                <ul class='nav navbar-nav'>
+                    <li id='add'></li>
+                </ul>
+
+           </div>
+     </div>
+   </div>
+   <script>
+function logout(){
+   alert('您已注销！');
+}
+</script>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<link rel='stylesheet' href="{{url_for('static',filename='everypagebodycolor.css')}}" media='screen' />
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning">
+       <button type="button" class="close" data-dismiss="alert">&times;</button>
+       {{ message }}
+    </div>
+    {% endfor %}
+
+   {% block page_content %}{% endblock %}
+  <footer class='navbar-fixed-bottom' >
+      <p class='text-center'>
+       Design by SDUT ACM运维中心.
+       </br>
+       All Rights Reserved 
+      </p>
+      </footer>
+  </div>
+ {% endblock %}
+
+
+{% block scripts %}
+ {{ super() }}
+{{ moment.include_moment()}}
+{% endblock %}

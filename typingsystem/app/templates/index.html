@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} 首页 {%endblock %}
+
+{% block page_content %}
+<script>
+window.onload=function(){
+{% if  writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/homepage/user={{writer}}'>当前用户:{{writer}}</a>";
+    document.getElementById('modifypwd').innerHTML="<a href='/auth/modifypwd/user={{writer}}'>修改密码</a>";
+    {%endif%}
+
+}
+</script>
+<div id='modifypwd'></div>
+<div class="page-header">
+    <h1>Hello, {% if writer %}{{writer}}！请选择<a href='/auth/articlelist'>练习</a>或者<a href='/auth/contextlist'>比赛</a>{% else %} stranger!<a href='/auth/login'> 请注册登陆</a> {%endif %} </h1>
+</div>
+</br>
+{% endblock %}

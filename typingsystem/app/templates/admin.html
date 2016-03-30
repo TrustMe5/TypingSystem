@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}admin{%endblock %}
+{% block page_content %}
+<center><h2>管理者登录</h2></center>
+{{ wtf.quick_form(loginform)}}
+{% endblock %}

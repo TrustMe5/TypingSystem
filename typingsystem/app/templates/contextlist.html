@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title%}比赛{%endblock%}
+{% block page_content %}
+<script>
+window.onload=function(){
+{% if not writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/login'>登陆</a> ";
+    self.location='/auth';
+    {%else%}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/homepage/user={{writer}}'>当前用户:{{writer}}</a>"
+    {%endif%}
+    startTime();
+}
+</script>
+<div id='current_time'></div>
+<center><h2> 比赛列表 </h2></center>
+<b>Go To Volume</b>
+{% for i in range(totalpagenum) %}
+<a href='/auth/contextlist/page={{loop.index}}'>[{{loop.index}}]</a>
+
+{%endfor%}
+<table  class='table table-bordered table-condensed'>
+    <tbody>
+    <tr class='info'>
+        <td>比赛ID</td>
+        <td>比赛名字</td>
+        <td>开始时间</td>
+        <td>结束时间</td>
+        </tr>
+        {% for list in result %}
+        <tr>
+            <td>{{list.id}}</td>
+            <td><a onclick='ifcanenter(this)'>{{list.contextname}}</a></td>
+            <td>{{list.start_time}}</td>
+            <td >{{list.end_time}}</td>
+       </tr>
+        {%endfor%}
+    </tbody>
+    </table>
+    
+<script src="{{url_for('static',filename='whetherstart.js')}}"></script>
+<script src="{{url_for('static',filename='currentdate.js')}}"></script>
+
+{%endblock%}

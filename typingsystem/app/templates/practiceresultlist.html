@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title%}日常打字情况{%endblock%}
+{% block page_content %}
+<script>
+window.onload=function(){
+{% if not writer %}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/login'>登陆</a> ";
+    self.location='/auth';
+    {%else%}
+    document.getElementById('iflogin').innerHTML="<a href='/auth/homepage/user={{writer}}'>当前用户:{{writer}}</a>"
+    {%endif%}
+}
+</script>
+<script>
+function skip(){
+pagenum=document.getElementById('pagenum').value;
+self.location='/auth/practiceresultlist/page='+pagenum
+}
+</script>
+<center><h1> 日常打字情况 </h1></center>
+<b>Go To Volume</b>
+当前页码:第{{currentpagenum}}页    共{{totalpagenum}}页，<input id='pagenum' type='text' name='lastpage'/>
+<input type='submit' name='nextpage' value='跳转' onclick='skip()'/>
+</br>
+<table class='table table-bordered table-condensed' >
+    <tbody>
+         <tr class='info'>
+        <td>ID</td>
+        <td>班级</td>
+        <td>学号</td>
+        <td>用户名</td>
+        <td>文章名字</td>
+        <td>打字速度</td>
+        <td>正确率</td>
+        <td>打字数目</td>
+        <td>日期</td>
+        <td>成绩</td>
+        </tr>
+        {% for list in result%}
+        <tr>
+            <td>{{list.id}}</td>
+            <td>{{list.classes}}</td>
+            <td>{{list.student_number}}</td>
+            <td><a href='/auth/homepage/user={{list.username}}'>{{list.username}}</a></td>
+            <td><a href='/auth/articlelist/{{list.articlename}}'>{{list.articlename}}</a></td>
+            <td>{{list.write_speed}}</td>
+            <td>{{list.right_rate}}</td>
+            <td>{{list.writenum}}</td>
+            <td>{{list.submitTime}}</td>
+            <td>{{list.level}}</td>
+            </tr>
+            {% endfor %}
+    </tbody>
+    </table>
+    
+{% endblock %}

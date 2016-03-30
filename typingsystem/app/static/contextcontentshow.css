@@ -1,0 +1,59 @@
+div #showresult{
+     position:absolute;
+     left:84%;
+     top:15%;
+}
+div #wri_speed{
+     position:absolute;
+     left:85%;
+     top:22%;
+}
+body{
+background-color:skyblue;
+}
+#submit{
+position:absolute;
+left:-100px;
+top:70px;
+width:60px;
+height:30px;
+}
+#div_time{
+   position:absolute;
+   left:85%;
+   top:8%;
+
+}
+#current_time{
+    position:absolute;
+    left:85%;
+    top:30%;
+}
+.result_input{
+width:100px;
+height:30px;
+}
+.green{
+ color:green;
+ }
+.red{
+ color:red;
+ }
+input{
+ width:1050px;
+ height:30px;
+ }
+#text-dur{
+position:absolute;
+left:70%;
+top:60px;
+}
+.typing{
+font-size:16px;
+font-weight:bold;
+font-family:"Microsoft YaHei";
+}
+footer{
+background-color:skyblue;
+
+}

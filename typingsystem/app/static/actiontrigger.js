@@ -1,0 +1,11 @@
+var a=1;
+function start(which){
+if(a==1){
+   var lable_input=document.getElementsByTagName('input');
+   for(var i=0;i<lable_input.length;i++){
+      lable_input[i].removeAttribute('readonly');
+   }
+   timedCount();
+   a=a+1;
+}
+}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}用户注册 {% endblock %}
+{% block page_content %}
+<link rel='stylesheet' href="{{url_for('static',filename='register.css')}}" media='screen' />
+<div id='register'>
+<center><h1> 注册 </h1></center>
+{{wtf.quick_form(register)}}
+
+<a href="/auth/login"> <h4>登陆</h4> </a>
+</div>
+
+{% endblock %}
