@@ -1,5 +1,4 @@
 # TypingSystem
-#test
 首页
 ![image](https://github.com/TrustMe5/TypingSystem/raw/master/image/homepage.png)
 
